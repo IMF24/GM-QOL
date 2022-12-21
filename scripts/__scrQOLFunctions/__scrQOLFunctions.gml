@@ -1,5 +1,5 @@
 // QUALITY OF LIFE FUNCTIONS SCRIPT BY IMF24, ET AL.
-// VERSION 1.0
+// VERSION 1.1
 
 // For the latest version of the QOL Script, visit the website!
 // https://sites.google.com/view/gm-qol
@@ -27,6 +27,16 @@ function int(__val) {
 	if (__convertedString == "") return 0; else return real(__convertedString);
 }
 
+// Cube number function.
+// Script Origin: Wrote by IMF24
+/// @arg {Real} x					The value to cube.
+/// @return {Real}					Returns the input number cubed.
+/// @desc	Returns the cube of the input number.
+function cbe(__x) {
+	// Take the cube of the input number.
+	return power(__x, 3);
+}
+
 // Cube root function.
 // Script Origin: Wrote by IMF24
 /// @arg {Real} x					The value to take the cube root of.
@@ -47,6 +57,14 @@ function root(__x, __root) {
 	// Take the nth root of the input number.
 	return power(__x, (1 / __root));
 }
+	
+// Power function, condensed.
+// Script Origin: Wrote by IMF24
+/// @arg {Real} x					The value to raise to the power of x.
+/// @arg {Real} exp					The number to raise x to the power of.
+/// @return {Real}					Returns the input number, raised to the power of x.
+/// @desc	Takes the input number and raises it to the power of x. This is a condensed version of power().
+function pow(__x, __exp) { return power(__x, __exp); }
 	
 // Invert value function.
 // Script Origin: Wrote by IMF24
@@ -140,10 +158,10 @@ function even(__x) {
 
 // Middle number function.
 // Script Origin: Wrote by IMF24
-/// @arg {Real} x1					The lowest number in the range.
-/// @arg {Real} x2					The highest number in the range.
+/// @arg {Real} x1					The first number.
+/// @arg {Real} x2					The second number.
 /// @return {Real}					Returns the number halfway between the maximum and minimum provided.
-/// @desc	Takes a minimum and maximum value and returns the value halfway between them.
+/// @desc	Takes two values and returns the value halfway between them.
 function mid(__x1, __x2) {
 	return (__x1 + __x2) / 2;
 }
@@ -1116,6 +1134,9 @@ function slider_create_ext(__x, __y, __depth, __event, __barProperties, __nubPro
 	var __sliderInst = instance_create_depth(__x, __y, __depth, __qolSlider);
 	
 	with (__sliderInst) {
+		// Set the function.
+		__sliderFunction = __event;
+		
 		// Bar properties.
 		__barSprite = __barProperties[0];
 		__barXScale = __barProperties[1];
@@ -1486,33 +1507,114 @@ function room_goto_crossfade(__room, __dur) {
 #endregion
 
 // =====================================================================================
+// Window Functions
+// =====================================================================================
+#region Window Functions
+// Full screen set function.
+// Script Origin: Wrote by IMF24
+/// @arg {Bool} value						Should the window be in full screen?
+/// @return {Undefined}						Doesn't return anything.
+/// @desc	Sets the window's full screen properties. This is a shortened version of window_set_fullscreen().
+function fullscreen(__fs) { window_set_fullscreen(__fs); }
+
+// Window set size function.
+// Script Origin: Wrote by IMF24
+/// @arg {Real} width						Width of the game window.
+/// @arg {Real} height						Height of the game window.
+/// @return {Undefined}						Doesn't return anything.
+/// @desc	Sets the dimensions of the game window. This is a shortened version of window_set_size().
+function window_size(__w, __h) { window_set_size(__w, __h); }
+
+// Window set title function.
+// Script Origin: Wrote by IMF24
+/// @arg {String} title						Title of the game window.
+/// @return {Undefined}						Doesn't return anything.
+/// @desc	Sets the title of the game window. This is a shortened version of window_set_caption().
+function window_title(__title) { window_set_caption(__title); }
+
+// Window set minimum size function.
+// Script Origin: Wrote by IMF24
+/// @arg {Real} width						Minimum width of the game window.
+/// @arg {Real} height						Minimum height of the game window.
+/// @return {Undefined}						Doesn't return anything.
+/// @desc	Sets the minimum size that the game window can be.
+function window_size_min(__w, __h) {
+	window_set_min_width(__w);
+	window_set_min_height(__h);
+}
+
+// Window set maximum size function.
+// Script Origin: Wrote by IMF24
+/// @arg {Real} width						Maximum width of the game window.
+/// @arg {Real} height						Maximum height of the game window.
+/// @return {Undefined}						Doesn't return anything.
+/// @desc	Sets the maximum size that the game window can be.
+function window_size_max(__w, __h) {
+	window_set_max_width(__w);
+	window_set_max_height(__h);
+}
+
+#endregion
+
+// =====================================================================================
 // Debug Functions
 // =====================================================================================
 #region Debug Functions
 // Debug log add entry.
+// Script Origin: Wrote by IMF24
 /// @arg {String} info						The string of information to add to the debug log.
 /// @arg {String} prefix					If desired, an introductory string of text will be appended to the beginning of the string.
+/// @arg {Bool} print						Should this message be printed to the Output window? Default is pulled from the config macros.
 /// @return {Undefined}						Doesn't return anything.
 /// @desc	Adds an entry to the global debug log.
-function debug_log_add(__info, __prefix = "") {
+function debug_log_add(__info, __prefix = "", __addToOutput = QOL_WRITE_DEBUG_LOG_TO_OUTPUT) {
 	if (__prefix != "") __info = str(__prefix + " " + __info);
+	
+	if (__addToOutput) show_debug_message(__info);
 	
 	array_push(global.__debugLog, __info);
 }
 
 // Write debug log to text file.
+// Script Origin: Wrote by IMF24
 /// @arg {String} fileName					The name of the file to write to. Default is "debug.txt".
-/// @return {Undefined}						Doesn't return anything.
-/// @desc	Takes the global debug log and writes its contents to a file on the system.
-function debug_log_export(__fileName = QOL_WRITE_DEBUG_LOG_FILE_NAME) {
+/// @arg {String} dir						The directory to save the file to. The final slash will be added before the file name. Default is the current working directory.
+/// @return {Id.TextFile}					Returns the text file ID created.
+/// @desc	Takes the global debug log and writes its contents to a file on the system. The input directory will be created
+///			if it doesn't already exist. If the debug log is empty, this does nothing.
+function debug_log_export(__fileName = QOL_WRITE_DEBUG_LOG_FILE_NAME, __dir = QOL_WRITE_DEBUG_LOG_DIR) {
 	if (len(global.__debugLog) <= 0) exit;
 	
-	var __file = file_text_open_write(__fileName);
+	if (!directory_exists(__dir)) directory_create(__dir);
+	
+	var __file = file_text_open_write(__dir + __fileName);
 	
 	for (var i = 0; i < len(global.__debugLog); i++) file_text_write_string(__file, global.__debugLog[i] + "\n");
 	
 	file_text_close(__file);
+
+	return __file;
 }
+
+// Message box creation function (for desktop debug).
+// Script Origin: Wrote by IMF24
+/// @arg {String} text						The text to show in the message window.
+/// @return {Undefined}						Doesn't return anything.
+/// @desc	Opens a popup window to the user. Only works on desktop targets.
+function msg(__text) { show_message(__text); }
+
+// Question message box creation function (for desktop debug).
+// Script Origin: Wrote by IMF24
+/// @arg {String} text						The text to show in the question window.
+/// @return {Bool}							Returns a true value if Yes, false if No.
+/// @desc	Asks a question by opening a popup window to the user. Only works on desktop targets.
+function ask(__text) { return show_question(__text); }
+
+// Close game function.
+// Script Origin: Wrote by IMF24
+/// @return {Undefined}						Doesn't return anything.
+/// @desc	Closes the game window. Triggers Game End events.
+function close() { game_end(); }
 
 // The function call used by the QOL_BETTER_ERRORS macro.
 // This will only be run if that macro is set to true.
@@ -1544,7 +1646,7 @@ if (QOL_BETTER_ERRORS) exception_unhandled_handler(function (__exception) {
 		
 		// Open a new text file and write the crash error information to it.
 		var __f = file_text_open_write(QOL_WRITE_ERROR_FILE_NAME);
-		file_text_write_string(__f, string(exception));
+		file_text_write_string(__f, string(__exception));
 		file_text_close(__f);
 		
 		// Show a new window telling the user that a text file has been saved in the local project's directory.
@@ -1564,5 +1666,18 @@ if (QOL_BETTER_ERRORS) exception_unhandled_handler(function (__exception) {
 
 #endregion
 
-// Show completed load.
+// =====================================================================================
+// Start Up Actions
+// =====================================================================================
+// Show current version (start of QOL load).
 show_debug_message("[OQL Library] GM QOL library installed! Version: V" + QOL_VERSION);
+
+// Run the full screen set function based on the config value.
+if (QOL_ALLOW_START_FULL_SCREEN) {
+	show_debug_message("[OQL Library] QOL full screen handler allowed, setting window full screen to " + string(QOL_START_FULL_SCREEN));
+	window_set_fullscreen(QOL_START_FULL_SCREEN);
+	show_debug_message("[OQL Library] Window full screen set to " + string(QOL_START_FULL_SCREEN));
+} else show_debug_message("[OQL Library] QOL full screen handler disallowed; Skipping...");
+
+// Show when load has completed.
+show_debug_message("[OQL Library] GM QOL library fully loaded!");

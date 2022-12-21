@@ -4,7 +4,7 @@ __maxValue = 1;
 
 __selected = false;
 
-__sliderFunction = function () {}
+__sliderFunction = function () {};
 
 __barSprite = __qolSliderBar;
 __barXScale = 1;

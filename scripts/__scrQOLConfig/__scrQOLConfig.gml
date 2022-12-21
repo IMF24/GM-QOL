@@ -14,9 +14,21 @@
 // This should be a string that holds a valid file name. TXT is preferable.
 #macro QOL_WRITE_ERROR_FILE_NAME "last_crash.txt"
 
+// Should the library allow the game start in full screen? 
+#macro QOL_ALLOW_START_FULL_SCREEN false
+
+// Should the game start in full screen? 
+#macro QOL_START_FULL_SCREEN false
+
 // Name of the text file holding the debug log, if being utilized.
 // This should be a string that holds a valid file name. TXT is preferable.
 #macro QOL_WRITE_DEBUG_LOG_FILE_NAME "debug.txt"
+
+// The directory to save the debug log file to.
+#macro QOL_WRITE_DEBUG_LOG_DIR working_directory
+
+// Should things added to the debug log also be printed to the Output window?
+#macro QOL_WRITE_DEBUG_LOG_TO_OUTPUT true
 
 // The default alpha that QOL assets should use.
 #macro QOL_DEFAULT_ALPHA 1
@@ -35,4 +47,3 @@
 
 // The default blend color that QOL assets will use.
 #macro QOL_DEFAULT_BLEND c_white
-

@@ -23,3 +23,4 @@ __textColor = QOL_DEFAULT_TEXT_COLOR;
 __textFont = QOL_DEFAULT_FONT;
 __textHAlign = QOL_DEFAULT_HALIGN;
 __textVAlign = QOL_DEFAULT_VALIGN;
+
