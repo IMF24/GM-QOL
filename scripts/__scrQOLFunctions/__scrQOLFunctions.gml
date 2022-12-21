@@ -1587,7 +1587,7 @@ function debug_log_export(__fileName = QOL_WRITE_DEBUG_LOG_FILE_NAME, __dir = QO
 	
 	if (!directory_exists(__dir)) directory_create(__dir);
 	
-	var __file = file_text_open_write(__dir + __fileName);
+	var __file = file_text_open_write(__dir + "/" + __fileName);
 	
 	for (var i = 0; i < len(global.__debugLog); i++) file_text_write_string(__file, global.__debugLog[i] + "\n");
 	
