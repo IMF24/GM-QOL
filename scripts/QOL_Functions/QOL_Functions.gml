@@ -123,8 +123,8 @@ function chance(__x) { return __x > random(1); }
 
 // Length function.
 // Script Origin: Wrote by IMF24
-/// @arg {Any} container			The container to return the length of.
-/// @return {Real}					Returns the length of the input container.
+/// @arg {Array | String} container			The container to return the length of.
+/// @return {Real}							Returns the length of the input container.
 /// @desc	Returns the length of a container. -1 is returned if an invalid container is given.
 function len(__container) {
 	if (is_array(__container)) return array_length(__container);
@@ -295,8 +295,8 @@ function print() {
 // Separated text function.
 // Script Origin: Dmi7ry (https://forum.yoyogames.com/index.php?threads/solved-adding-commas-into-score.39152/)
 /// @arg {Real} value				The value to draw with separators. No need to call string() in this argument, as it is done automatically.
-/// @arg {String} separator			Text separator that will be inserted between x digits.
-/// @arg {Real} digits				In between how many digits do you want to split the text?
+/// @arg {String} separator			Text separator that will be inserted between x digits. A comma is the default separator (,).
+/// @arg {Real} digits				In between how many digits do you want to split the text? Default is 3.
 /// @return {String}				Returns a string with the text separated between the specified number of digits.
 /// @desc	Draws text with separators at the specified interval of characters in the string. You specify the value you 
 ///			want to split with separators, and then, if desired, you can specify what string of text to split the string
@@ -443,12 +443,12 @@ function in_mask() {
 #region Object Functions
 // Move function with keyboard, used for basic movement.
 // Script Origin: Wrote by IMF24
-/// @arg {Real} interval										The distance to move when the given inputs are pressed.
-/// @arg {Array<Real>|Array<Constant.VirtualKey>} left			The input(s) to use for moving left.
-/// @arg {Array<Real>|Array<Constant.VirtualKey>} right			The input(s) to use for moving right.
-/// @arg {Array<Real>|Array<Constant.VirtualKey>} up			The input(s) to use for moving up.
-/// @arg {Array<Real>|Array<Constant.VirtualKey>} down			The input(s) to use for moving down.
-/// @return {Undefined}											Doesn't return anything.
+/// @arg {Real} interval											The distance to move when the given inputs are pressed.
+/// @arg {Array<Real> | Array<Constant.VirtualKey>} left			The input(s) to use for moving left.
+/// @arg {Array<Real> | Array<Constant.VirtualKey>} right			The input(s) to use for moving right.
+/// @arg {Array<Real> | Array<Constant.VirtualKey>} up				The input(s) to use for moving up.
+/// @arg {Array<Real> | Array<Constant.VirtualKey>} down			The input(s) to use for moving down.
+/// @return {Undefined}												Doesn't return anything.
 /// @desc	Allows for definition of a basic movement system on a 2D plane by a given interval for the keyboard. In each
 ///			directional argument, input an array listing all usable inputs for that direction.
 function move_define_keyboard(__interval, __left = [vk_left, ord("A")], __right = [vk_right, ord("D")], __up = [vk_up, ord("W")], __down = [vk_down, ord("S")]) {
@@ -473,7 +473,7 @@ function move_define_keyboard(__interval, __left = [vk_left, ord("A")], __right 
 // Script Origin: Shaun Spalding (https://www.youtube.com/watch?v=2FroAhEsuE8), Modified by IMF24
 /// @arg {Real} distance						The distance to move.
 /// @arg {Real} direction						The direction to move in.
-/// @arg {Asset.GMObject|Id.Instance} object*	The object to perform the move on.
+/// @arg {Asset.GMObject | Id.Instance} object*	The object to perform the move on.
 /// @return {Undefined}							Doesn't return anything.
 /// @desc	Moves the object to a location based on a given direction and distance.
 function jump_in_direction(__length, __direction, __object = self) {
@@ -1748,7 +1748,7 @@ if (QOL_BETTER_ERRORS) exception_unhandled_handler(function (__exception) {
 		"------------------------------------------\n" +
 		"Full Error Information:\n\n" + __exception.longMessage + "\n" +
 		"------------------------------------------\n" +
-		"To disable GM QOL Better Errors, go to the __scrQOLConfig script in the QOL Library folder, and set QOL_BETTER_ERRORS to false."
+		"To disable GM QOL Better Errors, go to the QOL_Config script in the QOL Library folder, and set QOL_BETTER_ERRORS to false."
 	);
 	
 	// Write text file documenting the most recent crash to the computer.
@@ -1777,9 +1777,9 @@ if (QOL_BETTER_ERRORS) exception_unhandled_handler(function (__exception) {
 /// @arg {String} item				Item to check to see if it is a sprite.
 /// @return {Bool}					Returns true or false if the input asset is a sprite.
 /// @desc This function will check if the given asset name (as a string) is a sprite or not.
-function is_sprite(__item) {	   
+function is_sprite(__item) {
 	if (asset_get_type(__item) == asset_sprite) return true; else return false;
-}								   
+}
 
 // Is this asset an object?
 // Script Origin: Wrote by IMF24
