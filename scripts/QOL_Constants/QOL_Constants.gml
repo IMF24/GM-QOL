@@ -28,3 +28,4 @@ global.__debugLogBackup = global.__debugLog;
 #macro cardinal_4dir (round(direction / 90) > 3) ? 0 : round(direction / 90)
 #macro cardinal_8dir (round(direction / 45) > 7) ? 0 : round(direction / 45)
 #macro cardinal_16dir (round(direction / 22.5) > 15) ? 0 : round(direction / 22.5)
+#macro cardinal_32dir (round(direction / 11.25) > 31) ? 0 : round(direction / 11.25)
