@@ -35,6 +35,10 @@ if (keyboard_check_pressed(vk_enter)) {
 		exit;
 	}
 	
+	array_push(global.__debugCommandQueue, __text);
+	
+	__cmdQueueIndex = len(global.__debugCommandQueue) - 1;
+	
 	global.__commandString = __text;
 	global.__commandArgs = string_split(global.__commandString, " ");
 	global.__commandArgCount = len(global.__commandArgs);
@@ -42,21 +46,29 @@ if (keyboard_check_pressed(vk_enter)) {
 	var __commandFound = false;
 	var __commandIndex = 0;
 	
-	for (var i = 0; i < len(global.__debugCommands); i++) {
-		if (global.__commandRoot == global.__debugCommands[i]) {
+	for (var i = 0; i < len(__commandBank); i++) {
+		if (global.__commandRoot == __commandBank[i]) {
 			__commandFound = true;
 			__commandIndex = i;
 			break;
 		}
 		
-		if (i == len(global.__debugCommands)) __commandFound = false;
+		if (i == len(__commandBank)) __commandFound = false;
 	}
 	
 	if (__commandFound) {
-		global.__debugActions[__commandIndex]();
+		__actionsBank[__commandIndex]();
 	} else {
 		__cmdOutputLog += "\nThe command \"" + global.__commandRoot + "\" does not exist."
 	}
 	
 	__text = "";
+	
+	print(global.__debugCommandQueue);
 }
+
+// Load previous commands.
+if (len(global.__debugCommandQueue) > 0) {
+	
+}
+

@@ -15,6 +15,12 @@
 // Debug Macros
 // =====================================================================================
 #region Debug Macros
+// This enables the GM QOL Debug Log. This will be saved in your project's working directory as "QOL_Debug.txt".
+// It is HIGHLY recommended to keep this enabled; it helps me to debug crashes or issues with the library!
+// Turn it off if it slows the game down, but you shouldn't run into issues with this being enabled.
+// NOTE: Before exporting your game, make sure to DISABLE this!
+#macro QOL_DEBUG_LOG true
+
 // Use better error messages?
 // These error messages will override the default GameMaker error messages with more clear and concise ones.
 #macro QOL_BETTER_ERRORS true
@@ -45,6 +51,9 @@
 
 // If there's a backup debug log active, when the active log is cleared, should the active log's contents be added into the backup?
 #macro QOL_DEBUG_LOG_BACKUP_APPEND true
+
+// The keyboard shortcut that will open the QOL Command Prompt. Set this to false or -1 if you don't want to use this.
+#macro QOL_DEBUG_COMMAND_PROMPT_SHORTCUT vk_f7
 
 #endregion
 

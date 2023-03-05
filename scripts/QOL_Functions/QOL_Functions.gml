@@ -1,5 +1,5 @@
 // QUALITY OF LIFE FUNCTIONS SCRIPT BY IMF24, ET AL.
-// VERSION 1.2
+// VERSION 1.3
 
 // For the latest version of the QOL Script, visit the website!
 // https://sites.google.com/view/gm-qol
@@ -18,7 +18,7 @@
 #region Math Functions
 // Condensed number function.
 // Script Origin: Wrote by IMF24
-/// @arg {any} val					The value to convert to a number.
+/// @arg {Any} val					The value to convert to a number.
 /// @return {Real}					Returns the value converted to a number.
 /// @desc	Takes the input value and converts it to a number. Does the same thing as real(), but has a shortened name,
 ///			and unlike real(), this function will always return a real number! No errors necessary!
@@ -65,7 +65,7 @@ function root(__x, __root) {
 /// @return {Real}					Returns the input number, raised to the power of x.
 /// @desc	Takes the input number and raises it to the power of x. This is a condensed version of power().
 function pow(__x, __exp) { return power(__x, __exp); }
-	
+
 // Invert value function.
 // Script Origin: Wrote by IMF24
 /// @arg {Real} x					The value to invert.
@@ -128,14 +128,10 @@ function chance(__x) { return __x > random(1); }
 /// @desc	Returns the length of a container. -1 is returned if an invalid container is given.
 function len(__container) {
 	if (is_array(__container)) return array_length(__container);
-
-	var __type = asset_get_type(string(__container));
-	
-	if (__type == asset_sprite) return sprite_get_number(__container);
-	
-	if (__type == asset_sound) return audio_sound_length(__container);
 	
 	if (is_string(__container)) return string_length(__container);
+	
+	return -1;
 }
 
 // Odd number function.
@@ -277,23 +273,22 @@ function array_max(__array) {
 #region Text Functions
 // Condensed string function.
 // Script Origin: Wrote by IMF24
-/// @arg {any} val					The value to convert to a string.
+/// @arg {Any} val					The value to convert to a string.
 /// @return {String}				Returns the value converted to a string.
 /// @desc	Takes the input value and converts it to a string. Does the same thing as string(), but has a shortened name.
 function str(__val) { return string(__val); }
 
-
-
 // Print text function.
 // Script Origin: Wrote by IMF24
-/// @arg {any} value1
-/// @arg {any} value2
-/// @arg {any} value3
+/// @arg {Any} value1
+/// @arg {Any} value2
+/// @arg {Any} value3
 /// @return {Undefined}				Doesn't return anything.
-/// @desc	Prints a message to the Output window. Unlike show_debug_message(), this function automatically converts all input values to strings.
+/// @desc	Prints a message to the Output window. This is a shortened version of show_debug_message().
 function print() {
 	var __valuesString = "";
 	for (var i = 0; i < argument_count; i++) __valuesString += string(argument[i]) + " ";
+	__valuesString = string_trim_end(__valuesString);
 	show_debug_message(__valuesString);
 }
 
@@ -347,19 +342,6 @@ function concat() {
 	return __string;
 }
 
-// Show a debug message with concatenated strings.
-// Script Origin: Shaun Spalding, et al. (https://youtu.be/5JZAAbyUNsQ?t=269)
-/// @arg {String} str1
-/// @arg {String} str2
-/// @arg {String} str3
-/// @return {Undefined}				Doesn't return anything.
-/// @desc	Takes the input strings, combines them all into one string, then prints them as a debug message in the Output window.
-function show_concat_debug_message() {
-	var __string = "";
-	for (var i = 0; i < argument_count; i++) __string += string(argument[i]);
-	show_debug_message(__string);
-}
-
 // Make string from variables function.
 // Script Origin: Gurpreet Singh Matharoo
 /// @arg {String} str1
@@ -405,6 +387,7 @@ function image_scale(__xscale, __yscale, __object = self) {
 /// @arg {Asset.GMSprite} sprite_index		The index of the sprite currently animating.
 /// @arg {Real} image_index					The current frame.
 /// @arg {Real} rate						Rate of change (in frames per step) if not using built-in image_index/speed.
+/// @return {Bool}							Return true or false if the sprite's animation ended on this frame.
 /// @desc	This function will return a true or false value if an object's sprite's animation will end on this frame.
 function animation_end(__sprite = sprite_index, __image = image_index, __speed = (sprite_get_speed(sprite_index) * image_speed)) {
 	var __type = sprite_get_speed_type(__sprite);
@@ -460,12 +443,12 @@ function in_mask() {
 #region Object Functions
 // Move function with keyboard, used for basic movement.
 // Script Origin: Wrote by IMF24
-/// @arg {Real} interval			The distance to move when the given inputs are pressed.
-/// @arg {Array<any>} left*			The input(s) to use for moving left.
-/// @arg {Array<any>} right*		The input(s) to use for moving right.
-/// @arg {Array<any>} up*			The input(s) to use for moving up.
-/// @arg {Array<any>} down*			The input(s) to use for moving down.
-/// @return {Undefined}				Doesn't return anything.
+/// @arg {Real} interval										The distance to move when the given inputs are pressed.
+/// @arg {Array<Real>|Array<Constant.VirtualKey>} left			The input(s) to use for moving left.
+/// @arg {Array<Real>|Array<Constant.VirtualKey>} right			The input(s) to use for moving right.
+/// @arg {Array<Real>|Array<Constant.VirtualKey>} up			The input(s) to use for moving up.
+/// @arg {Array<Real>|Array<Constant.VirtualKey>} down			The input(s) to use for moving down.
+/// @return {Undefined}											Doesn't return anything.
 /// @desc	Allows for definition of a basic movement system on a 2D plane by a given interval for the keyboard. In each
 ///			directional argument, input an array listing all usable inputs for that direction.
 function move_define_keyboard(__interval, __left = [vk_left, ord("A")], __right = [vk_right, ord("D")], __up = [vk_up, ord("W")], __down = [vk_down, ord("S")]) {
@@ -488,10 +471,10 @@ function move_define_keyboard(__interval, __left = [vk_left, ord("A")], __right 
 
 // Jump in direction function.
 // Script Origin: Shaun Spalding (https://www.youtube.com/watch?v=2FroAhEsuE8), Modified by IMF24
-/// @arg {Real} distance			The distance to move.
-/// @arg {Real} direction			The direction to move in.
-/// @arg {Asset.GMObject} object*	The object to perform the move on.
-/// @return {Undefined}				Doesn't return anything.
+/// @arg {Real} distance						The distance to move.
+/// @arg {Real} direction						The direction to move in.
+/// @arg {Asset.GMObject|Id.Instance} object*	The object to perform the move on.
+/// @return {Undefined}							Doesn't return anything.
 /// @desc	Moves the object to a location based on a given direction and distance.
 function jump_in_direction(__length, __direction, __object = self) {
 	var __objectExists = instance_exists(__object);
@@ -1683,14 +1666,14 @@ function debug_log_recall(__append, __appendPos = 0) {
 /// @arg {String} text						The text to show in the message window.
 /// @return {Undefined}						Doesn't return anything.
 /// @desc	Opens a popup window to the user. Only works on desktop targets.
-function msg(__text) { show_message(__text); }
+function msg(__text) { show_message(string(__text)); }
 
 // Asks a question via a message box function (for desktop debug).
 // Script Origin: Wrote by IMF24
 /// @arg {String} text						The text to show in the question window.
 /// @return {Bool}							Returns a true value if Yes, false if No.
 /// @desc	Asks a question by opening a popup window to the user. Only works on desktop targets.
-function ask(__text) { return show_question(__text); }
+function ask(__text) { return show_question(string(__text)); }
 
 // Close game function.
 // Script Origin: Wrote by IMF24
@@ -1698,12 +1681,18 @@ function ask(__text) { return show_question(__text); }
 /// @desc	Closes the game window. Triggers Game End events.
 function close() { game_end(); }
 
+// Restart game function.
+// Script Origin: Wrote by IMF24
+/// @return {Undefined}						Doesn't return anything.
+/// @desc	Restarts the game.
+function restart() { game_restart(); }
+
 // URL open function.
 // Script Origin: Wrote by IMF24
 /// @arg {String} url						The URL of the website to open.
 /// @return {Undefined}						Doesn't return anything.
 /// @desc	Opens a designated URL in the device's default web browser.
-function url(__url) { url_open(__url); }
+function url(__url) { if (is_string(__url)) url_open(__url); else exit; }
 
 // Save File dialog window.
 // Script Origin: Wrote by IMF24
@@ -1731,7 +1720,7 @@ function ask_open_filename(__filter, __fileName, __dir, __title) { return get_op
 // Script Origin: Wrote by IMF24
 /// @return {Id.Instance}					Returns the instance ID of the created prompt instance.
 /// @desc	Opens the QOL Library debug command log. Returns the ID of the prompt instance.
-function debug_command_open() { if (!instance_exists(__qolCommandPrompt)) instance_create_depth(0, 0, 0, __qolCommandPrompt); }
+function debug_command_open() { if (!instance_exists(__qolCommandPrompt)) return instance_create_depth(0, 0, 0, __qolCommandPrompt); }
 
 // Closes the debug command prompt.
 // Script Origin: Wrote by IMF24
@@ -1773,10 +1762,33 @@ if (QOL_BETTER_ERRORS) exception_unhandled_handler(function (__exception) {
 		file_text_close(__f);
 		
 		// Show a new window telling the user that a text file has been saved in the local project's directory.
-		show_message("A text file documenting the last crash can be found in the local directory as \"" + QOL_WRITE_ERROR_FILE_NAME + "\".");
+		show_message("A text file documenting the last crash can be found in the local directory as \"" + QOL_WRITE_ERROR_FILE_NAME + ".");
 	}
 });
 
+#endregion
+
+// =====================================================================================
+// Asset Functions
+// =====================================================================================
+#region Asset Functions
+// Is this asset a sprite?
+// Script Origin: Wrote by IMF24
+/// @arg {String} item				Item to check to see if it is a sprite.
+/// @return {Bool}					Returns true or false if the input asset is a sprite.
+/// @desc This function will check if the given asset name (as a string) is a sprite or not.
+function is_sprite(__item) {	   
+	if (asset_get_type(__item) == asset_sprite) return true; else return false;
+}								   
+
+// Is this asset an object?
+// Script Origin: Wrote by IMF24
+/// @arg {String} item				Item to check to see if it is an object.
+/// @return {Bool}					Returns true or false if the input asset is an object.
+/// @desc This function will check if the given asset name (as a string) is an object or not.
+function is_object(__item) {
+	if (asset_get_type(__item) == asset_object) return true; else return false;
+}
 #endregion
 
 // =====================================================================================
@@ -1784,9 +1796,35 @@ if (QOL_BETTER_ERRORS) exception_unhandled_handler(function (__exception) {
 // =====================================================================================
 #region Deprecated Functions
 // *** ALL FUNCTIONS UNDER THIS SECTION ARE DEPRECATED! Their use is highly discouraged and no support will be given for scripts that use these functions.
+// *** These functions may be removed from the library at any time with no prior notice.
+	// Deprecation warning function.
+	/// @arg {String} function			The deprecated function.
+	/// @arg {String} replacement		The deprecated function's replacement function.
+	/// @arg {String} msg				Optional: The message to give.
+	/// @desc	Warns the user about (a) deprecated function(s) and describes its/their replacement(s).
+	function warn_deprecation(__func, __replace, __msg = "") {
+		if (__msg != "") print(__msg); else {
+			print("[QOL Library] QOL Deprecation Warning: In future versions of the GM QOL Library, " + __func + " may be removed. Use " + __replace + " instead.");
+		}
+	}
 
-	// No functions are deprecated yet.
-
+	// Show a debug message with concatenated strings.
+	// Script Origin: Shaun Spalding, et al. (https://youtu.be/5JZAAbyUNsQ?t=269)
+	/// @arg {String} str1
+	/// @arg {String} str2
+	/// @arg {String} str3
+	/// @return {Undefined}				Doesn't return anything.
+	/// @desc	Takes the input strings, combines them all into one string, then prints them as a debug message in the Output window.
+	///			
+	///			DEPRECATED: This behavior is given in print() and also the vanilla show_debug_message() function.
+	/// @deprecated
+	function show_concat_debug_message() {
+		warn_deprecation("show_concat_debug_message()", "print() OR show_debug_message()");
+		
+		var __string = "";
+		for (var i = 0; i < argument_count; i++) __string += string(argument[i]);
+		show_debug_message(__string);
+	}
 #endregion
 
 // =====================================================================================
@@ -1800,10 +1838,23 @@ show_debug_message("[QOL Library] GM QOL library installed! Version: V" + QOL_VE
 if (QOL_SHOW_LOADING) {
 	// Run the full screen set function based on the config value.
 	if (QOL_ALLOW_START_FULL_SCREEN) {
-		show_debug_message("[OQL Library] QOL full screen handler allowed, setting window full screen to " + string(QOL_START_FULL_SCREEN));
+		show_debug_message("[QOL Library] QOL full screen handler allowed, setting window full screen to " + string(QOL_START_FULL_SCREEN));
 		window_set_fullscreen(QOL_START_FULL_SCREEN);
-		show_debug_message("[OQL Library] Window full screen set to " + string(QOL_START_FULL_SCREEN));
-	} else show_debug_message("[OQL Library] QOL full screen handler disallowed; Skipping...");
+		show_debug_message("[QOL Library] Window full screen set to " + string(QOL_START_FULL_SCREEN));
+	} else show_debug_message("[QOL Library] QOL full screen handler disallowed; Skipping...");
+	
+	// Create QOL Command Prompt instance (if valid keyboard shortcut is given).
+	if (QOL_DEBUG_COMMAND_PROMPT_SHORTCUT != false) || (QOL_DEBUG_COMMAND_PROMPT_SHORTCUT != -1) {
+		show_debug_message("[QOL Library] QOL Command Prompt keyboard shortcut is set to key ID " + string(QOL_DEBUG_COMMAND_PROMPT_SHORTCUT) + "; setting up...");
+		
+		global.__cmdStartPrompt = function () { if (keyboard_check_pressed(QOL_DEBUG_COMMAND_PROMPT_SHORTCUT)) debug_command_open(); }
+		
+		global.__cmdKeyShortcutTS = time_source_create(time_source_global, 1, time_source_units_frames, global.__cmdStartPrompt, [], -1);
+		time_source_start(global.__cmdKeyShortcutTS);
+		
+		show_debug_message("[QOL Library] Time source created; listens for key " + string(QOL_DEBUG_COMMAND_PROMPT_SHORTCUT));
+		
+	} else show_debug_message("[QOL Library] QOL Command Prompt global key shortcut was disabled; Skipping...");
 
 }
 

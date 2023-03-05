@@ -2,14 +2,11 @@
 // GM QOL CONSTANTS
 
 // QOL current version.
-#macro QOL_VERSION "1.2"
+#macro QOL_VERSION "1.3"
 
 // Debug log global variables.
 global.__debugLog = [];
 global.__debugLogBackup = global.__debugLog;
-
-// Debug command prompt commands.
-// If you want to add yor
 
 // Color constants.
 #macro c_plum #CC00FF
@@ -27,3 +24,7 @@ global.__debugLogBackup = global.__debugLog;
 #macro cr_normal 0
 #macro cr_sprite 1
 
+// Cardinal directions.
+#macro cardinal_4dir (round(direction / 90) > 3) ? 0 : round(direction / 90)
+#macro cardinal_8dir (round(direction / 45) > 7) ? 0 : round(direction / 45)
+#macro cardinal_16dir (round(direction / 22.5) > 15) ? 0 : round(direction / 22.5)
