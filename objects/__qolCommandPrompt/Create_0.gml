@@ -5,7 +5,7 @@ __text = "";
 __hintTextListen = "Type Command Here...";
 __hintTextInterpret = "";
 __charLimit = 0;
-__charLimit = round(__charLimit);
+__charLimit = round(int(__charLimit));
 
 __cmdOutputLog = "";
 
@@ -13,6 +13,3 @@ __commandBank = global.__debugCommands;
 __actionsBank = global.__debugActions;
 
 __cmdQueueIndex = len(global.__debugCommandQueue) - 1;
-
-__lastInputCommand = __text;
-

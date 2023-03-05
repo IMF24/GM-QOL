@@ -21,7 +21,7 @@
 /// @arg {Any} val					The value to convert to a number.
 /// @return {Real}					Returns the value converted to a number.
 /// @desc	Takes the input value and converts it to a number. Does the same thing as real(), but has a shortened name,
-///			and unlike real(), this function will always return a real number! No errors necessary!
+///			and unlike real(), this function will always return a real number! No errors given!
 function int(__val) {
 	var __convertedString = string_digits(string(__val));
 	if (__convertedString == "") return 0; else return real(__convertedString);

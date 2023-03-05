@@ -59,7 +59,7 @@ if (keyboard_check_pressed(vk_enter)) {
 	if (__commandFound) {
 		__actionsBank[__commandIndex]();
 	} else {
-		__cmdOutputLog += "\nThe command \"" + global.__commandRoot + "\" does not exist."
+		__cmdOutputLog += "\nThe command \"" + global.__commandRoot + "\" does not exist. Type /help for a list of commands."
 	}
 	
 	__text = "";
@@ -69,6 +69,19 @@ if (keyboard_check_pressed(vk_enter)) {
 
 // Load previous commands.
 if (len(global.__debugCommandQueue) > 0) {
+	__up = keyboard_check_pressed(vk_up);
+	__down = keyboard_check_pressed(vk_down);
 	
+	if (__up) || (__down) {
+		if (__cmdQueueIndex >= len(global.__debugCommandQueue)) __text = "";
+		else __text = global.__debugCommandQueue[__cmdQueueIndex];
+	}
+		
+	if (__up) {
+		if (__cmdQueueIndex > 0) __cmdQueueIndex--;
+	}
+	
+	if (__down) {
+		if (__cmdQueueIndex < len(global.__debugCommandQueue)) __cmdQueueIndex++;
+	}
 }
-
