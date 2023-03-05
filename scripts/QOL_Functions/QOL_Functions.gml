@@ -57,7 +57,7 @@ function root(__x, __root) {
 	// Take the nth root of the input number.
 	return power(__x, (1 / __root));
 }
-	
+
 // Power function, condensed.
 // Script Origin: Wrote by IMF24
 /// @arg {Real} x					The value to raise to the power of x.
@@ -1766,29 +1766,6 @@ if (QOL_BETTER_ERRORS) exception_unhandled_handler(function (__exception) {
 	}
 });
 
-#endregion
-
-// =====================================================================================
-// Asset Functions
-// =====================================================================================
-#region Asset Functions
-// Is this asset a sprite?
-// Script Origin: Wrote by IMF24
-/// @arg {String} item				Item to check to see if it is a sprite.
-/// @return {Bool}					Returns true or false if the input asset is a sprite.
-/// @desc This function will check if the given asset name (as a string) is a sprite or not.
-function is_sprite(__item) {
-	if (asset_get_type(__item) == asset_sprite) return true; else return false;
-}
-
-// Is this asset an object?
-// Script Origin: Wrote by IMF24
-/// @arg {String} item				Item to check to see if it is an object.
-/// @return {Bool}					Returns true or false if the input asset is an object.
-/// @desc This function will check if the given asset name (as a string) is an object or not.
-function is_object(__item) {
-	if (asset_get_type(__item) == asset_object) return true; else return false;
-}
 #endregion
 
 // =====================================================================================
