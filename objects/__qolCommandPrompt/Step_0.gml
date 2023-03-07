@@ -30,15 +30,19 @@ if (__deleteTimer != 2) __deleteTimer++;
 
 // When the user pushes the Enter key, process the command.
 if (keyboard_check_pressed(vk_enter)) {
+	// Was nothing typed in?
 	if (__text == "") {
 		__cmdOutputLog += "\nNo command entered! Type /help for a list of commands.";
 		exit;
 	}
 	
+	// Add the input command to the end of the command queue.
 	array_push(global.__debugCommandQueue, __text);
 	
+	// Update the queue index.
 	__cmdQueueIndex = len(global.__debugCommandQueue) - 1;
 	
+	// Now we'll parse the command!
 	global.__commandString = __text;
 	global.__commandArgs = string_split(global.__commandString, " ");
 	global.__commandArgCount = len(global.__commandArgs);
@@ -46,25 +50,34 @@ if (keyboard_check_pressed(vk_enter)) {
 	var __commandFound = false;
 	var __commandIndex = 0;
 	
+	// In the array of command names, look through them and see if we find a match.
 	for (var i = 0; i < len(__commandBank); i++) {
+		// If the root command matches, we know it's a valid command!
+		// We can break out of the loop in this case.
 		if (global.__commandRoot == __commandBank[i]) {
 			__commandFound = true;
 			__commandIndex = i;
 			break;
 		}
 		
+		// At the end of the loop, if the root command didn't match any command names, it's NOT a valid command!
 		if (i == len(__commandBank)) __commandFound = false;
 	}
 	
+	// If the command was found, execute its function.
 	if (__commandFound) {
 		__actionsBank[__commandIndex]();
+	
+	// If not, we can just tell the user it was an invalid command.
 	} else {
 		__cmdOutputLog += "\nThe command \"" + global.__commandRoot + "\" does not exist. Type /help for a list of commands."
 	}
 	
+	// Reset the text input field.
 	__text = "";
 	
-	print(global.__debugCommandQueue);
+	// DEBUG: Print the command queue.
+	// print(global.__debugCommandQueue);
 }
 
 // Load previous commands.

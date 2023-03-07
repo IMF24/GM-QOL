@@ -181,7 +181,7 @@ global.__debugActions = [
 					break;
 					
 					default:
-						__cmdOutputLog += "Usage: /window <w|h|x|y|name|size> [value]/<x> <y>"
+						__cmdOutputLog += "\nUsage: /window <w|h|x|y|name|size> [value]/<x> <y>"
 					break;
 				}
 			}
