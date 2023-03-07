@@ -477,7 +477,9 @@ global.__debugActions = [
 						break;
 						
 						case "destroy":
-							if (__instExists) {
+							if (global.__commandArgs[2] == "all") {
+								instance_destroy(all);
+							} else if (__instExists) {
 								instance_destroy(asset_get_index(global.__commandArgs[2]));
 								__cmdOutputLog += "\nAll instances of object " + global.__commandArgs[2] + " have been destroyed";
 							}
@@ -563,7 +565,7 @@ global.__debugActions = [
 							__text = __textToUse;
 						}
 							
-						__cmdOutputLog += "\nAdded string of text \"" + __textToUse + "\" at the (X, Y) position (" + global.__commandArgs[2] + ", " + global.__commandArgs[3] + ")"
+						__cmdOutputLog += "\nAdded text string \"" + str(__textToUse) + "\" at the (X, Y) position (" + global.__commandArgs[2] + ", " + global.__commandArgs[3] + ")";
 					break;
 				}
 			}
