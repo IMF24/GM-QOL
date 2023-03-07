@@ -2,5 +2,5 @@ rooms/
 objects/oTest/
 objects/oTest2/
 options/
-sprites/sAnimTest
-sprites/sBox
+sprites/sAnimTest/
+sprites/sBox/
