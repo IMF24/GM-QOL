@@ -31,7 +31,8 @@ global.__debugCommands = [
 	"docs",
 	"documentation",
 	"room",
-	"instance"
+	"instance",
+	"draw"
 ]
 
 // List of command actions (as functions).
@@ -530,11 +531,48 @@ global.__debugActions = [
 				break;
 			}
 		}
+	},
+	
+	// /draw
+	function () {
+		with (global.__activeCommandInstance) {
+			switch (global.__commandArgCount) {
+				case 1: default:
+					__cmdOutputLog += "\nUsage: /draw <text|image|shape> <x> <y> <str|sprite>"
+				break;
+				
+				case 2: case 3: case 4:
+					__cmdOutputLog += "\nInvalid argument count! Usage: /draw <text|image|shape> <x> <y> <str|sprite>"
+				break;
+			}
+		
+			if (global.__commandArgCount >= 5) {
+				switch (global.__commandArgs[1]) {
+					case "text":
+						// Add an instance to the room.
+						var __inst = instance_create_depth(0, 0, 0, __qolCmdDrawText);
+							
+						var __textToUse = "";
+							
+						for (var i = 4; i < len(global.__commandArgs); i++) __textToUse += global.__commandArgs[i] + " "
+						__textToUse = string_trim_end(__textToUse);
+							
+						with (__inst) {
+							__x = int(global.__commandArgs[2]);
+							__y = int(global.__commandArgs[3]);
+							__text = __textToUse;
+						}
+							
+						__cmdOutputLog += "\nAdded string of text \"" + __textToUse + "\" at the (X, Y) position (" + global.__commandArgs[2] + ", " + global.__commandArgs[3] + ")"
+					break;
+				}
+			}
+		}
 	}
 ]
 
 // The current instance for the command prompt. Updated at runtime when a command prompt instance is created.
-global.__activeCommandInstance = 0;
+global.__activeCommandInstance = noone;
 
 // The command queue. When the up or down arrows are pressed, cycle through this array.
 global.__debugCommandQueue = [];

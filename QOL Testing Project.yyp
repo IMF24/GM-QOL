@@ -42,6 +42,7 @@
     {"id":{"name":"__qolInputBox","path":"sprites/__qolInputBox/__qolInputBox.yy",},},
     {"id":{"name":"Room2","path":"rooms/Room2/Room2.yy",},},
     {"id":{"name":"QOL_Functions","path":"scripts/QOL_Functions/QOL_Functions.yy",},},
+    {"id":{"name":"__qolCmdDrawText","path":"objects/__qolCmdDrawText/__qolCmdDrawText.yy",},},
     {"id":{"name":"__qolCheckBoxSpr","path":"sprites/__qolCheckBoxSpr/__qolCheckBoxSpr.yy",},},
     {"id":{"name":"__qolCrossFade","path":"objects/__qolCrossFade/__qolCrossFade.yy",},},
     {"id":{"name":"__qolFont","path":"fonts/__qolFont/__qolFont.yy",},},

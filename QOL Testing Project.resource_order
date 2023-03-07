@@ -19,6 +19,7 @@
     {"name":"__qolSlider","order":9,"path":"objects/__qolSlider/__qolSlider.yy",},
     {"name":"__qolInputBox","order":4,"path":"sprites/__qolInputBox/__qolInputBox.yy",},
     {"name":"Room2","order":1,"path":"rooms/Room2/Room2.yy",},
+    {"name":"__qolCmdDrawText","order":11,"path":"objects/__qolCmdDrawText/__qolCmdDrawText.yy",},
     {"name":"__qolCheckBoxSpr","order":1,"path":"sprites/__qolCheckBoxSpr/__qolCheckBoxSpr.yy",},
     {"name":"__qolCrossFade","order":4,"path":"objects/__qolCrossFade/__qolCrossFade.yy",},
     {"name":"__qolFont","order":3,"path":"fonts/__qolFont/__qolFont.yy",},

@@ -82,6 +82,8 @@ if (keyboard_check_pressed(vk_enter)) {
 
 // Load previous commands.
 if (len(global.__debugCommandQueue) > 0) {
+	var __up, __down;
+	
 	__up = keyboard_check_pressed(vk_up);
 	__down = keyboard_check_pressed(vk_down);
 	
