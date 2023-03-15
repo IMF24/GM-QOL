@@ -4,6 +4,10 @@
 // QOL current version.
 #macro QOL_VERSION "1.3"
 
+// Capital letter booleans.
+#macro True true
+#macro False false
+
 // Debug log global variables.
 global.__debugLog = [];
 global.__debugLogBackup = global.__debugLog;

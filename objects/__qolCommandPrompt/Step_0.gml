@@ -43,18 +43,22 @@ if (keyboard_check_pressed(vk_enter)) {
 	__cmdQueueIndex = len(global.__debugCommandQueue) - 1;
 	
 	// Now we'll parse the command!
-	global.__commandString = __text;
-	global.__commandArgs = string_split(global.__commandString, " ");
+	var __commandString = __text;
+	
+	global.__commandArgs = string_split(__commandString, " ");
 	global.__commandArgCount = len(global.__commandArgs);
-	global.__commandRoot = global.__commandArgs[0];
+	
+	var __commandRoot = global.__commandArgs[0];
+	
 	var __commandFound = false;
+	
 	var __commandIndex = 0;
 	
 	// In the array of command names, look through them and see if we find a match.
 	for (var i = 0; i < len(__commandBank); i++) {
 		// If the root command matches, we know it's a valid command!
 		// We can break out of the loop in this case.
-		if (global.__commandRoot == __commandBank[i]) {
+		if (__commandRoot == __commandBank[i]) {
 			__commandFound = true;
 			__commandIndex = i;
 			break;
@@ -70,7 +74,7 @@ if (keyboard_check_pressed(vk_enter)) {
 	
 	// If not, we can just tell the user it was an invalid command.
 	} else {
-		__cmdOutputLog += "\nThe command \"" + global.__commandRoot + "\" does not exist. Type /help for a list of commands."
+		__cmdOutputLog += "\nThe command \"" + str(__commandRoot) + "\" does not exist. Type /help for a list of commands."
 	}
 	
 	// Reset the text input field.

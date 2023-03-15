@@ -60,6 +60,7 @@ global.__debugActions = [
 							+ "/print <msg> - Prints a message to the Output window in the IDE.\n"
 							+ "/room <next|previous|exists|goto> [<id|next|previous>] - Go to or check various aspects on rooms.\n"
 							+ "/instance <create|destroy|exists> <x|id_or_object> [<y>] <object> <depth|layer> <d|l> - Add, destroy, or check instances.\n"
+							+ "/draw <text|image> <x> <y> <str|sprite> - Draw text or sprites to the screen.\n"
 							
 							+ "\n" + global.__debugCustomCommandHelp;
 		}
@@ -156,7 +157,7 @@ global.__debugActions = [
 							for (var i = 2; i < global.__commandArgCount; i++) __newCaption += global.__commandArgs[i] + " ";
 							__newCaption = string_trim_end(__newCaption);
 							window_set_caption(__newCaption);
-							__cmdOutputLog += "\nWindow title updated to \"" + __newCaption + "\"";
+							__cmdOutputLog += "\nWindow title updated to \"" + str(__newCaption) + "\"";
 						} else {
 							var __windowName = window_get_caption();
 							__cmdOutputLog += "\nWindow title: \"" + __windowName + "\"";
@@ -399,7 +400,12 @@ global.__debugActions = [
 				
 					switch (global.__commandArgs[1]) {
 						case "exists":
-							 __targetRoom = (asset_get_index(global.__commandArgs[2]) > -1) ? asset_get_index(global.__commandArgs[1]) : 0;
+							if (global.__commandArgs[2] == "next") __targetRoom = room_next(room);
+							
+							else if (global.__commandArgs[2] == "previous") __targetRoom = room_previous(room);
+							
+							else __targetRoom = (asset_get_index(global.__commandArgs[2]) > -1) ? asset_get_index(global.__commandArgs[2]) : 0;
+							
 							if (room_exists(__targetRoom)) __cmdOutputLog += "\nTrue"; else __cmdOutputLog += "\nFalse";
 						break;
 						
@@ -540,20 +546,20 @@ global.__debugActions = [
 		with (global.__activeCommandInstance) {
 			switch (global.__commandArgCount) {
 				case 1: default:
-					__cmdOutputLog += "\nUsage: /draw <text|image|shape> <x> <y> <str|sprite>"
+					__cmdOutputLog += "\nUsage: /draw <text|image> <x> <y> <str|sprite>"
 				break;
 				
 				case 2: case 3: case 4:
-					__cmdOutputLog += "\nInvalid argument count! Usage: /draw <text|image|shape> <x> <y> <str|sprite>"
+					__cmdOutputLog += "\nInvalid argument count! Usage: /draw <text|image> <x> <y> <str|sprite> [<frame>]"
 				break;
 			}
 		
 			if (global.__commandArgCount >= 5) {
+				var __inst = instance_create_depth(0, 0, 0, __qolCmdDrawText);
+				
 				switch (global.__commandArgs[1]) {
 					case "text":
 						// Add an instance to the room.
-						var __inst = instance_create_depth(0, 0, 0, __qolCmdDrawText);
-							
 						var __textToUse = "";
 							
 						for (var i = 4; i < len(global.__commandArgs); i++) __textToUse += global.__commandArgs[i] + " "
@@ -566,6 +572,19 @@ global.__debugActions = [
 						}
 							
 						__cmdOutputLog += "\nAdded text string \"" + str(__textToUse) + "\" at the (X, Y) position (" + global.__commandArgs[2] + ", " + global.__commandArgs[3] + ")";
+					break;
+					
+					case "image":
+						var __spriteToUse = asset_get_index(global.__commandArgs[4]);
+
+						with (__inst) {
+							__x = int(global.__commandArgs[2]);
+							__y = int(global.__commandArgs[3]);
+							__image = __spriteToUse;
+							__frame = int(global.__commandArgs[5]);
+						}
+						
+						__cmdOutputLog += "\nAdded image \"" + global.__commandArgs[4] + "\", frame " + str(int() + 1) + ", at the (X, Y) position (" + global.__commandArgs[2] + ", " + global.__commandArgs[3] + ")";
 					break;
 				}
 			}
