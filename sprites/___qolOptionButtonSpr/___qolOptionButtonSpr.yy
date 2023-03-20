@@ -26,7 +26,7 @@
   "origin": 4,
   "parent": {
     "name": "QOL Extra Assets",
-    "path": "folders/QOL Library/QOL Extra Assets.yy",
+    "path": "folders/QOL Core Library/QOL Extra Assets.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

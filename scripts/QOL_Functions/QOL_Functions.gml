@@ -1,17 +1,34 @@
-// QUALITY OF LIFE FUNCTIONS SCRIPT BY IMF24, ET AL.
-// VERSION 1.3
+/* =================================================================================================== *
+ *     _____ __  __      ____   ____  _          _      _____ ____  _____            _______     __	   *
+ *    / ____|  \/  |    / __ \ / __ \| |        | |    |_   _|  _ \|  __ \     /\   |  __ \ \   / /	   *
+ *   | |  __| \  / |   | |  | | |  | | |        | |      | | | |_) | |__) |   /  \  | |__) \ \_/ /	   *
+ *   | | |_ | |\/| |   | |  | | |  | | |        | |      | | |  _ <|  _  /   / /\ \ |  _  / \   /	   *
+ *   | |__| | |  | |   | |__| | |__| | |____    | |____ _| |_| |_) | | \ \  / ____ \| | \ \  | |	   *
+ *    \_____|_|  |_|    \___\_\\____/|______|   |______|_____|____/|_|  \_\/_/    \_\_|  \_\ |_|	   *
+ *	  																								   *
+ *    		GameMaker Quality of Life Library						Coded by IMF24, et al.			   *
+ *	  																								   *
+ * =================================================================================================== */
+/*	QUALITY OF LIFE FUNCTIONS SCRIPT BY IMF24, ET AL.
+	VERSION 1.3
+	FOR GAMEMAKER VERSION 2023.2+
 
-// For the latest version of the QOL Script, visit the website!
-// https://sites.google.com/view/gm-qol
+	Here's some relevant links for the project!
+	- Website:			https://sites.google.com/view/gm-qol/home
+	- Documentation:	https://sites.google.com/view/gm-qol-docs/home
+	- GitHub Page:		https://github.com/IMF24/GM-QOL
+	- Discord Server:	https://discord.gg/rQCYE57dyS
 
-// If you need help, either check out the online user documentation or join the Discord server!
-// https://sites.google.com/view/gm-qol
-// https://sites.google.com/view/gm-qol-docs
-// https://discord.gg/rQCYE57dyS
+	You can find me online at these places!
+	- YouTube:			https://youtube.com/@IMF24_New
+	- Twitter:			https://youtube.com/IMF24_GHWT
+	- Twitch:			https://twitch.tv/imf24
+	- GitHub:			https://github.com/IMF24
+	- Discord:			IMF24#0266
 
-// This article contains information regarding new script format as of GM Version 2.3.0:
-// https://help.yoyogames.com/hc/en-us/articles/360005277377
-
+	This article contains information regarding new script format as of GM Version 2.3.0:
+	https://help.yoyogames.com/hc/en-us/articles/360005277377
+*/
 // =====================================================================================
 // Math Functions
 // =====================================================================================

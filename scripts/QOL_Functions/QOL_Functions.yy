@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "QOL Scripts",
-    "path": "folders/QOL Library/QOL Scripts.yy",
+    "path": "folders/QOL Core Library/QOL Scripts.yy",
   },
 }

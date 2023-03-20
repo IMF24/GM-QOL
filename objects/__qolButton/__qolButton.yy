@@ -11,7 +11,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "QOL Objects",
-    "path": "folders/QOL Library/QOL Objects.yy",
+    "path": "folders/QOL Core Library/QOL Objects.yy",
   },
   "parentObjectId": null,
   "persistent": false,

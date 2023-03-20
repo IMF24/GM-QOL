@@ -236,7 +236,7 @@
   "maintainGms1Font": false,
   "parent": {
     "name": "QOL Extra Assets",
-    "path": "folders/QOL Library/QOL Extra Assets.yy",
+    "path": "folders/QOL Core Library/QOL Extra Assets.yy",
   },
   "pointRounding": 0,
   "ranges": [

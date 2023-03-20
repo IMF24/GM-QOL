@@ -60,16 +60,14 @@ global.__debugActions = [
 							+ "/print <msg> - Prints a message to the Output window in the IDE.\n"
 							+ "/room <next|previous|exists|goto> [<id|next|previous>] - Go to or check various aspects on rooms.\n"
 							+ "/instance <create|destroy|exists> <x|id_or_object> [<y>] <object> <depth|layer> <d|l> - Add, destroy, or check instances.\n"
-							+ "/draw <text|image> <x> <y> <str|sprite> - Draw text or sprites to the screen.\n"
+							+ "/draw <text|image> <x> <y> <str|sprite> [<frame>] - Draw text or sprites to the screen.\n"
 							
 							+ "\n" + global.__debugCustomCommandHelp;
 		}
 	},
 	
 	// /?
-	function () {
-		global.__debugActions[0]();
-	},
+	function () { global.__debugActions[0](); },
 	
 	// /clear
 	function () {
