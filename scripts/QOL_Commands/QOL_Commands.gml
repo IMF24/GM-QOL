@@ -591,6 +591,7 @@ global.__debugActions = [
 ]
 
 // The current instance for the command prompt. Updated at runtime when a command prompt instance is created.
+// Max of 1 of these instances can exist, no more.
 global.__activeCommandInstance = noone;
 
 // The command queue. When the up or down arrows are pressed, cycle through this array.
