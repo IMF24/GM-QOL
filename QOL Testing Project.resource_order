@@ -1,12 +1,12 @@
 {
   "FolderOrderSettings": [
-    {"name":"QOL Core Library","order":1,"path":"folders/QOL Core Library.yy",},
-    {"name":"Rooms","order":3,"path":"folders/Rooms.yy",},
-    {"name":"RPG Module","order":2,"path":"folders/RPG Module.yy",},
-    {"name":"QOL RPG Module Objects","order":2,"path":"folders/RPG Module/QOL RPG Module Objects.yy",},
-    {"name":"QOL RPG Module Scripts","order":1,"path":"folders/RPG Module/QOL RPG Module Scripts.yy",},
-    {"name":"QOL RPG Module Sprites","order":3,"path":"folders/RPG Module/QOL RPG Module Sprites.yy",},
-    {"name":"Sprites","order":4,"path":"folders/Sprites.yy",},
+    {"name":"Objects","order":3,"path":"folders/Objects.yy",},
+    {"name":"Rooms","order":4,"path":"folders/Rooms.yy",},
+    {"name":"Sprites","order":2,"path":"folders/Sprites.yy",},
   ],
-  "ResourceOrderSettings": [],
+  "ResourceOrderSettings": [
+    {"name":"oTest2","order":1,"path":"objects/oTest2/oTest2.yy",},
+    {"name":"__qolNewMenu","order":1,"path":"objects/__qolNewMenu/__qolNewMenu.yy",},
+    {"name":"__qolMenuHeader","order":2,"path":"objects/__qolMenuHeader/__qolMenuHeader.yy",},
+  ],
 }

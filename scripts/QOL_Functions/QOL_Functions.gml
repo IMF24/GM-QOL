@@ -1589,6 +1589,22 @@ function window_position(__x, __y) { window_set_position(__x, __y); }
 #endregion
 
 // =====================================================================================
+// Interface Functions
+// =====================================================================================
+#region Interface Functions
+// Add top menu.
+/// @arg {Real} index				The position for the menu on the top bar. Starts at 0, increases for each new menu afterwards.
+/// @arg {String} label				The text for the menu itself.
+/// @return {Undefined}				Doesn't return anything.
+/// @desc	Add a new menu to the top of the root window. If no menus are created, this adds a bar across the top of the
+///			window, going all the way across to hold all menus in, then creates a menu.
+function menu_create(__index, __label) {
+	
+}
+
+#endregion
+
+// =====================================================================================
 // Debug Functions
 // =====================================================================================
 #region Debug Functions

@@ -1,17 +1,20 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "oPlayer_QOL_RPG",
+  "name": "__qolNewMenu",
   "eventList": [
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
   ],
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "QOL RPG Module Objects",
-    "path": "folders/RPG Module/QOL RPG Module Objects.yy",
+    "name": "QOL Objects",
+    "path": "folders/QOL Core Library/QOL Objects.yy",
   },
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "__qolMenuHeader",
+    "path": "objects/__qolMenuHeader/__qolMenuHeader.yy",
+  },
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,
@@ -27,10 +30,7 @@
   "physicsStartAwake": true,
   "properties": [],
   "solid": false,
-  "spriteId": {
-    "name": "sPlayer_QOL_RPG",
-    "path": "sprites/sPlayer_QOL_RPG/sPlayer_QOL_RPG.yy",
-  },
+  "spriteId": null,
   "spriteMaskId": null,
   "visible": true,
 }
