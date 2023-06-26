@@ -92,8 +92,11 @@ if (len(global.__debugCommandQueue) > 0) {
 	__down = keyboard_check_pressed(vk_down);
 	
 	if (__up) || (__down) {
-		if (__cmdQueueIndex >= len(global.__debugCommandQueue)) __text = "";
-		else __text = global.__debugCommandQueue[__cmdQueueIndex];
+		if (__cmdQueueIndex >= len(global.__debugCommandQueue)) {
+			__text = "";
+			exit;
+			
+		} else __text = global.__debugCommandQueue[__cmdQueueIndex];
 	}
 		
 	if (__up) {

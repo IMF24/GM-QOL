@@ -573,16 +573,22 @@ global.__debugActions = [
 					break;
 					
 					case "image":
+						if (asset_get_type(global.__commandArgs[4]) != asset_sprite) {
+							__cmdOutputLog += $"\nError parsing command: The resource {global.__commandArgs[4]} either is not a sprite or does not exist.";
+							instance_destroy(__inst);
+							exit;
+						}
+						
 						var __spriteToUse = asset_get_index(global.__commandArgs[4]);
 
 						with (__inst) {
 							__x = int(global.__commandArgs[2]);
 							__y = int(global.__commandArgs[3]);
 							__image = __spriteToUse;
-							__frame = int(global.__commandArgs[5]);
+							__frame = (global.__commandArgCount > 5) ? int(global.__commandArgs[5]) : 0;
 						}
 						
-						__cmdOutputLog += "\nAdded image \"" + global.__commandArgs[4] + "\", frame " + str(int() + 1) + ", at the (X, Y) position (" + global.__commandArgs[2] + ", " + global.__commandArgs[3] + ")";
+						__cmdOutputLog += "\nAdded image \"" + global.__commandArgs[4] + "\", frame " + str(int(global.__commandArgs[5]) + 1) + $" (ID {global.__commandArgs[5]}), at the (X, Y) position (" + global.__commandArgs[2] + ", " + global.__commandArgs[3] + ")";
 					break;
 				}
 			}
